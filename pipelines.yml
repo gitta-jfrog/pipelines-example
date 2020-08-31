@@ -1,3 +1,12 @@
+resources:
+  - name: myrepo
+    type: GitRepo
+    configuration:
+      gitProvider: mygithub
+      path: ~gitta-jfrog/pipelines-example
+      branches:
+        include: master
+
 pipelines:
   - name: pipeline_hello_world
     configuration:
@@ -9,7 +18,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: mygithub
+            - name: myrepo
         execution:
           onExecute:
             - echo $MY_MESSAGE
