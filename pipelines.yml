@@ -2,7 +2,7 @@ resources:
   - name: myrepo
     type: GitRepo
     configuration:
-      gitProvider: mygithub
+      gitProvider: github
       path: gitta-jfrog/pipelines-example
       branches:
         include: master
