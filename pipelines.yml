@@ -6,7 +6,6 @@ resources:
       path: gitta-jfrog/pipelines-example
       branches:
         include: master
-        resources:
   - name:       teams
     type:       OutgoingWebhook
     configuration:
