@@ -6,6 +6,12 @@ resources:
       path: gitta-jfrog/pipelines-example
       branches:
         include: master
+        resources:
+  - name:       teams
+    type:       OutgoingWebhook
+    configuration:
+      webhookName: teams
+      path: /json
 
 pipelines:
   - name: pipeline_hello_world
@@ -14,6 +20,21 @@ pipelines:
         readOnly:
           MY_MESSAGE: '"Hello World!"'
     steps:
+      - name: my_send_hook_json
+        type: Bash
+        configuration:
+          outputResources:
+            - name: teams
+        execution:
+          onExecute:
+            - jsonPayload="{\"runNumber\":\"$run_number\", \"stepName\":\"$step_name\"}"
+            - set_payload MyOutgoingJSONResource "$jsonPayload"
+          onFailure:
+            - export res_MyOutgoingJSONResource_skipWebHook=true
+          onSuccess:
+            - echo "Payload sent by "$res_MyOutgoingJSONResource_name":"
+            - echo $res_My-Outgoing-JSON-Resource_payload
+            
       - name: step_1
         type: Bash
         configuration:
@@ -62,3 +83,4 @@ pipelines:
             - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
             - add_pipeline_variables prev_runid=$run_id           
             - echo $current_runid Completed
+         
