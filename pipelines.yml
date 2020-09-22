@@ -26,3 +26,4 @@ pipelines:
           onSuccess:
             - echo "Payload sent by "$res_MyOutgoingJSONResource_name":"
             - echo $res_My-Outgoing-JSON-Resource_payload
+
