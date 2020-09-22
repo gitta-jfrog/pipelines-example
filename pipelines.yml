@@ -20,10 +20,10 @@ pipelines:
         execution:
           onExecute:
             - jsonPayload="{\"runNumber\":\"$run_number\", \"stepName\":\"$step_name\"}"
-            - set_payload MyOutgoingJSONResource "$jsonPayload"
+            - set_payload teams "$jsonPayload"
           onFailure:
-            - export res_MyOutgoingJSONResource_skipWebHook=true
+            - export res_teams_skipWebHook=true
           onSuccess:
-            - echo "Payload sent by "$res_MyOutgoingJSONResource_name":"
-            - echo $res_My-Outgoing-JSON-Resource_payload
+            - echo "Payload sent by "$res_teams_name":"
+            - echo $res_teams_payload
 
